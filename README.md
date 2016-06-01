@@ -9,10 +9,17 @@ If you want to add Player's NPC, enter command in game <br />
 then tap the ground.<br /><br />
 Or If you want to add Entity NPC, enter command<br />
 <strong>/cc add &lt;ENTITY LIST&gt; &lt;ItemID&gt;</strong>
+<br />If you delete NPC, enter
+<br /><strong>/cn del</strong>and Tap.
 ##How to set up Item and command?
 Open NPC.json and follow.<br />
 <img src="https://github.com/Managon-pop/CustomNPC/blob/master/img/picc.png"></img>
 <br />If you want to change command, change at "command". Like this,
 <img src="https://github.com/Managon-pop/CustomNPC/blob/master/img/co.png"></img>
 <br />And then go to your server and tap NPC.<br />
-<img src="https://github.com/Managon-pop/CustomNPC/blob/master/img/nana.nana.jpeg"></img>
+<img src="https://github.com/Managon-pop/CustomNPC/blob/master/img/nana.jpg"></img><br />
+And If you want to change its name, change at "name".
+##Todo
+<ul>
+<li>Change options of npc in game.</li>
+</ul>
