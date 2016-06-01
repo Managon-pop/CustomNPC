@@ -2,6 +2,10 @@
 ##Custom NPC in your Server!!
 NPC sends you Item and does command.<br />
 You can set Item and Command.
+###Usage
+###How to set up
+###Todo
+###Entity ID List
 
 ##Usage
 If you want to add Player's NPC, enter command in game <br />
