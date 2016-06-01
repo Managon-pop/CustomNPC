@@ -1,0 +1,10 @@
+name: CustomChest
+main: Managon\CustomChest
+api: 
+- 1.17.0
+- 2.0.0
+author: Managon
+version: ß1.0.0
+commands:
+  cc:
+    description: "CustomChest Commands"
