@@ -11,4 +11,6 @@ Or If you want to add Entity NPC, enter command<br />
 <strong>/cc add &lt;ENTITY LIST&gt; &lt;ItemID&gt;</strong>
 ##How to set up Item and command?
 Open NPC.json and follow.<br />
-<img src="https://github.com/Managon-pop/CustomChest/img/pic.png"></img>
+<img src="https://github.com/Managon-pop/CustomChest/img/picc.png"></img>
+If you want to change command, change at "command". Like this,
+<img src="https://github.com/Managon-pop/CustomChest/master/blob/img/co.png"></img>
