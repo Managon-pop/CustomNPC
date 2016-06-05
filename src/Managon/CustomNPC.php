@@ -617,12 +617,8 @@ class CustomNPC extends PluginBase implements Listener{
 						$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
 					}
 
-			$this->server->updatePlayerListData($pk->uuid, $eid, $name, $options["skin_name"], base64_decode($options["skin_name"]), $this->server->getOnlinePlayers());
-
 			$this->npc->set($pk->eid, $options);
 			$this->npc->save();
-
-			$this->server->removePlayerListData($removePlayerPacket->clientId);
 
 			$this->npc->remove($eid);
 
