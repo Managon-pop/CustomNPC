@@ -49,3 +49,5 @@ Arrow : 80<br />Bat : 19<br />Blaze : 43<br />Boat : 90<br />CaveSpider : 40<br 
          ・Change option in a game with /cn opt.<br />
          ・Save yaw and pitch.<br />
          ・fix when you delete the player NPC, It clashes.
+v1.1.1...Add #1(Dont use!)
+v1.1.2...Fixed bug and add #1
