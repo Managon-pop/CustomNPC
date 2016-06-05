@@ -36,6 +36,8 @@ class CustomNPC extends PluginBase implements Listener{
 
 	private $del;
 
+	private $uuidFolder = [];
+
 	private $opt = [];
 	public function onEnable(){
 		
@@ -65,7 +67,9 @@ class CustomNPC extends PluginBase implements Listener{
 
 						$pk->eid = $target;
 
-						$pk->clientId = base64_decode($this->npc->get($target)["uuid"]);
+						$pk->clientId = $this->uuidFolder[$target];
+
+						unset($this->uuidFolder[$eid]);
 
 						$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
 
@@ -182,6 +186,8 @@ class CustomNPC extends PluginBase implements Listener{
 				$player->dataPacket($pk);
 
 				$this->server->updatePlayerListData($pk->uuid, $pk->eid, $name, $data["skin_name"], base64_decode($data["skin"]),$this->server->getOnlinePlayers());
+
+				$this->uuidFolder[$key] = $pk->uuid;
 			}else
 			{
 				$pk = new AddEntityPacket();
@@ -447,6 +453,7 @@ class CustomNPC extends PluginBase implements Listener{
 			    $this->server->broadcastPacket($player->getLevel()->getPlayers(), $pk);
 
 			    $this->server->updatePlayerListData($pk->uuid, $pk->eid, $n, $player->getSkinName(), $player->getSkinData(),$this->server->getOnlinePlayers());
+			    $this->uuidFolder[$pk->eid] = $pk->uuid;
 
 			    $this->npc->set($pk->eid, [
 			    	"type" => "player",
@@ -582,10 +589,12 @@ class CustomNPC extends PluginBase implements Listener{
 		if($type === "player")
 	    {
 	    	$removePlayerPacket = new RemovePlayerPacket();
-
 			$removePlayerPacket->eid = $eid;
+			$removePlayerPacket->clientId = $this->uuidFolder[$eid];
 
-			$removePlayerPacket->clientId = UUID::fromString(base64_decode($options["uuid"]));
+			$this->server->removePlayerListData($removePlayerPacket->clientId);
+
+			unset($this->uuidFolder[$eid]);
 
 			if($player !== null)
 			{
@@ -616,6 +625,8 @@ class CustomNPC extends PluginBase implements Listener{
 					}else{
 						$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
 					}
+			$this->uuidFolder[$pk->eid] = $pk->uuid;
+			$this->server->updatePlayerListData($pk->uuid, $pk->eid, $name, $options["skin_name"], base64_decode($options["skin"]),$this->server->getOnlinePlayers());
 
 			$this->npc->set($pk->eid, $options);
 			$this->npc->save();
