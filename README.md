@@ -4,15 +4,17 @@ NPC sends you Item and does command.<br />
 You can set Item and Command.
 ###Usage
 ###How to set up
+###Commands
 ###Todo
 ###Entity ID List
+###Updates
 
 ##Usage
 If you want to add Player's NPC, enter command in game <br />
 <strong>/cn add player &lt;ItemId&gt; &lt;command(If you don't want, enter cn)&gt; &lt;Name&gt;</strong>
 then tap the ground.<br /><br />
 Or If you want to add Entity NPC, enter command<br />
-<strong>/cc add &lt;ENTITY LIST&gt; &lt;ItemID&gt;</strong>
+<strong>/cn add &lt;player | entityId&gt; &lt;ItemID&gt; &lt;Name&gt;</strong>
 <br />If you delete NPC, enter
 <br /><strong>/cn del</strong>&nbsp;and Tap.
 ##How to set up Item and command?
@@ -23,6 +25,14 @@ Open NPC.json and follow.<br />
 <br />And then go to your server and tap NPC.<br />
 <img src="https://github.com/Managon-pop/CustomNPC/blob/master/img/nana.jpg"></img><br />
 And If you want to change its name, change at "name".
+##Commands
+/cn add &lt;player | entityId&gt; &lt;ItemID&gt; &lt;Name&gt;<br />
+/cn del
+/cn opt move &lt;x&gt; &lt;y&gt; &lt;z&gt;
+        item &lt;ID&gt; &lt;Amount&gt;
+        name &lt;Name&gt;
+        msg &lt;Message&gt;
+        command &lt;add | del&gt; &lt;Command&gt;
 ##Todo
 <ul>
 <li>Change options of npc in game.</li>
