@@ -131,6 +131,9 @@ class CustomNPC extends PluginBase implements Listener{
 					return;
 				}
 				$ef = $this->npc->get($pk->target);
+				$ef["yaw"] = $player->getYaw() + 180;
+				$this->add($pk->target, $ef, $player);
+
 				$commandA = $ef["commands"];
 				foreach ((array) $commandA as $command) 
 				{
@@ -456,7 +459,7 @@ class CustomNPC extends PluginBase implements Listener{
 			    	"skin" => base64_encode($player->getSkinData()), 
 			    	"skin_name"=>$player->getSkinName(),
 			    	"text-on-top" => "", 
-			    	"message" => "",
+			    	"msg" => "",
 			    	"yaw" => $pk->yaw,
 			    	"pitch" => $pk->pitch]);
 			    $this->npc->save();
@@ -508,7 +511,6 @@ class CustomNPC extends PluginBase implements Listener{
 	{
 		$data = $this->npc->get($eid);
 		$data[$type] = $args;
-		var_dump($data);
 		$this->npc->set($eid, $data);
 		$this->npc->save();
 
@@ -550,7 +552,7 @@ class CustomNPC extends PluginBase implements Listener{
 		}
 	}
 
-	public function add($eid, array $options)
+	public function add($eid, array $options, $player = null)
 	{
 		$type = $options["type"];
 		$x = $options["x"];
@@ -573,12 +575,24 @@ class CustomNPC extends PluginBase implements Listener{
 	        $pk->pitch = 0;
 		    $pk->eid = mt_rand(10000,100000);
 		    $pk->type = intval($type);
-		    $options["player"]->dataPacket($pk);
+		    $player->dataPacket($pk);
 		    return;
 		}
 		$name = $options["name"];
 		if($type === "player")
 	    {
+	    	$removePlayerPacket = new RemovePlayerPacket();
+
+			$removePlayerPacket->eid = $eid;
+
+			$removePlayerPacket->clientId = UUID::fromString(base64_decode($options["uuid"]));
+
+			if($player !== null)
+			{
+				$player->dataPacket($removePlayerPacket);
+			}else{
+				$this->server->broadcastPacket($this->server->getOnlinePlayers(), $removePlayerPacket);
+			}
 	        $pk = new AddPlayerPacket();
 
 	        $pk->uuid = UUID::fromRandom();
@@ -596,22 +610,19 @@ class CustomNPC extends PluginBase implements Listener{
 	        $pk->metadata = [Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING,$name],
 					     Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE,1]];
 
-			$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
+			if($player !== null)
+					{
+						$player->dataPacket($pk);
+					}else{
+						$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
+					}
 
-			$this->server->updatePlayerListData($pk->uuid, $eid, $name, $options["skin_name"], base64_decode($options["skin_name"]),$this->server->getOnlinePlayers());
+			$this->server->updatePlayerListData($pk->uuid, $eid, $name, $options["skin_name"], base64_decode($options["skin_name"]), $this->server->getOnlinePlayers());
 
 			$this->npc->set($pk->eid, $options);
 			$this->npc->save();
 
-			$rp = new RemovePlayerPacket();
-
-			$rp->eid = $eid;
-
-			$rp->clientId = UUID::fromString(base64_decode($options["uuid"]));
-
-			$this->server->broadcastPacket($this->server->getOnlinePlayers(),$rp);
-
-			$this->server->removePlayerListData($rp->clientId);
+			$this->server->removePlayerListData($removePlayerPacket->clientId);
 
 			$this->npc->remove($eid);
 
@@ -635,7 +646,6 @@ class CustomNPC extends PluginBase implements Listener{
 			        {
 				        $p->dataPacket($pk);
 			        }
-			        var_dump($options);
                     $this->npc->set($pk->eid, $options);
 			        $this->npc->save();
 
@@ -643,7 +653,12 @@ class CustomNPC extends PluginBase implements Listener{
 
 					$pk->eid = $eid;
 
-					$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
+					if($player !== null)
+					{
+						$player->dataPacket($pk);
+					}else{
+						$this->server->broadcastPacket($this->server->getOnlinePlayers(), $pk);
+					}
 
 					$this->npc->remove($eid);
 
