@@ -7,6 +7,7 @@ NPCはあなたにアイテムを授け、コマンドを実行します。<br /
 ###コマンド
 ###Todo
 ###Entity ID List
+###アップデート情報
 
 ##使い方
 プレイヤー型のNPCを設置したい場合は次のようにコマンドをうちます。<br />
@@ -27,12 +28,12 @@ NPC.jsonを開きます。<br />
 同じように名前やアイテムを変えられます。.
 ##コマンド
 /cn add &lt;player | entityId&gt; &lt;ItemID&gt; &lt;Name&gt;<br />
-/cn del
-/cn opt move &lt;x&gt; &lt;y&gt; &lt;z&gt;
-        item &lt;ID&gt; &lt;Amount&gt;
-        name &lt;Name&gt;
-        msg &lt;Message&gt;
-        command &lt;add | del&gt; &lt;Command&gt;
+/cn del<br />
+/cn opt move &lt;x&gt; &lt;y&gt; &lt;z&gt;<br />
+                item &lt;ID&gt; &lt;Amount&gt;<br />
+                name &lt;Name&gt;<br />
+                msg &lt;Message&gt;<br />
+                command &lt;add | del&gt; &lt;Command&gt;
 ##Todo
 <ul>
 <li>オプションをゲーム内で変えられるように。</li>
