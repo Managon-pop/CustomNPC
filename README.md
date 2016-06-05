@@ -51,3 +51,4 @@ Arrow : 80<br />Bat : 19<br />Blaze : 43<br />Boat : 90<br />CaveSpider : 40<br 
          ・fix when you delete the player NPC, It clashes.<br />
 v1.1.1...Add #1(Dont use!)<br />
 v1.1.2...Fixed bug and add #1<br />
+v1.1.3...Fixed bug(When you tap NPC, it gets your skin)
