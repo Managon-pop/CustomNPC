@@ -4,7 +4,7 @@ api:
 - 1.17.0
 - 2.0.0
 author: Managon
-version: ß1.1.0
+version: 1.1.3
 commands:
   cn:
     description: "CustomNPC Commands"
