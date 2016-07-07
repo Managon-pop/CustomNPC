@@ -24,7 +24,8 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 
-class CustomNPC extends PluginBase implements Listener{
+class CustomNPC extends PluginBase implements Listener
+{
 	
 	public $ids = 
 	[
@@ -131,11 +132,12 @@ class CustomNPC extends PluginBase implements Listener{
 		foreach ($this->npc->getAll() as $key => $data) 
 		{
 			if(!$data["show"]) return;//show equals false
+			
 			$type = $data["type"];
 			$x = $data["x"];
 			$y = $data["y"];
 			$z = $data["z"];
-			$itemId = $data["item"]["id"];
+			$itemId = $data["item"]["id"];				
 			$amount = $data["item"]["amount"];
 			$name = $data["name"];
 
@@ -149,13 +151,13 @@ class CustomNPC extends PluginBase implements Listener{
 				$pk->y = $y+1;
 				$pk->z = $z;
 				$pk->speedX = 0;
-	        	$pk->speedY = 0;
-	        	$pk->speedZ = 0;
-	        	$pk->yaw = $data["yaw"];
-	        	$pk->pitch = $data["pitch"];
-	        	$pk->item = Item::get(intval($itemId),0,0);
-	        	$pk->metadata = [
-	        		Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
+	        		$pk->speedY = 0;
+	        		$pk->speedZ = 0;
+	        		$pk->yaw = $data["yaw"];
+	        		$pk->pitch = $data["pitch"];
+	        		$pk->item = Item::get(intval($itemId),0,0);
+	        		$pk->metadata = [
+	        			Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
 			  		Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $name],
 			  		Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
 			  		Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
@@ -173,16 +175,16 @@ class CustomNPC extends PluginBase implements Listener{
 			{
 				$pk = new AddEntityPacket();
 
-	        	$pk->eid = $key;
-	        	$pk->type = $type;
-	        	$pk->x = $x+0.5;
-	        	$pk->y = $y+1;
-	        	$pk->z = $z+0.5;
-	        	$pk->yaw = $data["yaw"];
-	        	$pk->pitch = $data["pitch"];
+	        		$pk->eid = $key;
+	        		$pk->type = $type;
+	        		$pk->x = $x+0.5;
+	        		$pk->y = $y+1;
+	        		$pk->z = $z+0.5;
+	        		$pk->yaw = $data["yaw"];
+	        		$pk->pitch = $data["pitch"];
 
-	        	$pk->metadata = [
-	        		Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
+	        		$pk->metadata = [
+	        			Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
 			  		Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $name],
 			  		Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
 			  		Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
@@ -194,7 +196,7 @@ class CustomNPC extends PluginBase implements Listener{
 			}
 		}
 	}
-
+	
 	
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args)
 	{
@@ -411,102 +413,103 @@ class CustomNPC extends PluginBase implements Listener{
 
 			$id = $this->tap[$name][0];
 
-	        $itemId = $this->tap[$name][1];
+	        	$itemId = $this->tap[$name][1];
 
-	        $command = $this->tap[$name][2];
+		 	$command = $this->tap[$name][2];
 
-	        $n = $this->tap[$name][3];
+	        	$n = $this->tap[$name][3];
 
-	        if($id === "player")
-	        {
-	        	$pk = new AddPlayerPacket();
+	        	if($id === "player")
+	        	{
+	        		$pk = new AddPlayerPacket();
 
-	        	$pk->uuid = UUID::fromRandom();
-	            $pk->username = $n;
-	        	$pk->eid = mt_rand(1000,100000);
-	        	$pk->x = $x+0.5;
-	        	$pk->y = $y+1;
-	        	$pk->z = $z+0.5;
-	        	$pk->speedX = 0;
-	        	$pk->speedY = 0;
-	        	$pk->speedZ = 0;
-	        	$pk->yaw = $player->getYaw() + 180;
-	        	$pk->pitch = -5;
-	        	$pk->item = Item::get(0,0,0);
-	        	$pk->metadata = [
+	        		$pk->uuid = UUID::fromRandom();
+	            		$pk->username = $n;
+	        		$pk->eid = mt_rand(1000,100000);
+	        		$pk->x = $x+0.5;
+	        		$pk->y = $y+1;
+	        		$pk->z = $z+0.5;
+	        		$pk->speedX = 0;
+	        		$pk->speedY = 0;
+	        		$pk->speedZ = 0;
+	        		$pk->yaw = $player->getYaw() + 180;
+	        		$pk->pitch = -5;
+	        		$pk->item = Item::get(0,0,0);
+	        		$pk->metadata = [
 			  		Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 1 << Entity::DATA_FLAG_INVISIBLE],
 			  		Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $n],
 			  		Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
 			  		Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
 			  		Entity::DATA_LEAD_HOLDER => [Entity::DATA_TYPE_LONG, -1],
 			  		Entity::DATA_LEAD => [Entity::DATA_TYPE_BYTE, 0]
-		    		];
+		    			];
 
-			    $this->server->broadcastPacket($player->getLevel()->getPlayers(), $pk);
+			    	$this->server->broadcastPacket($player->getLevel()->getPlayers(), $pk);
 
-			    $this->server->updatePlayerListData($pk->uuid, $pk->eid, $n, $player->getSkinId(), $player->getSkinData(),$this->server->getOnlinePlayers());
+			    	$this->server->updatePlayerListData($pk->uuid, $pk->eid, $n, $player->getSkinId(), $player->getSkinData(),$this->server->getOnlinePlayers());
 
-			    $this->uuidFolder[$pk->eid] = $pk->uuid;
+			    	$this->uuidFolder[$pk->eid] = $pk->uuid;
 
-			    $this->npc->set($pk->eid, [
-			    	"show" => true,
-			    	"type" => "player",
-			    	"x"=>$x,
-			    	"y"=>$y,
-			    	"z"=>$z,
-			    	"item"=>["id"=>$itemId,"amount"=>1],
-			    	"commands"=>[$command],
-			    	"name"=>$n,"uuid"=>base64_encode($pk->uuid),
-			    	"skin" => base64_encode($player->getSkinData()), 
-			    	"skin_id"=>$player->getSkinId(),
-			    	"text-on-top" => "", 
-			    	"msg" => "",
-			    	"yaw" => $pk->yaw,
-			    	"pitch" => $pk->pitch]);
+				 $this->npc->set($pk->eid, [
+			    		"show" => true,
+			    		"type" => "player",
+			    		"x"=>$x,
+			    		"y"=>$y,
+			    		"z"=>$z,
+			    		"item"=>["id"=>$itemId,"amount"=>1],
+			    		"commands"=>[$command],
+			    		"name"=>$n,"uuid"=>base64_encode($pk->uuid),
+			    		"skin" => base64_encode($player->getSkinData()), 
+			    		"skin_id"=>$player->getSkinId(),
+			    		"text-on-top" => "", 
+			    		"msg" => "",
+			    		"yaw" => $pk->yaw,
+			    		"pitch" => $pk->pitch
+			    		]);
 
-			    $this->npc->save();
-			    unset($this->tap[$name]);
+			    	$this->npc->save();
+			    	unset($this->tap[$name]);
 			
-	        }else
-	        {
-	        	$pk = new AddEntityPacket();
+	        	}else
+	        	{
+	        		$pk = new AddEntityPacket();
 
-	        	$pk->eid = mt_rand(1000,100000);
-	        	$pk->type = $id;
-	            $pk->x = $x+0.5;
-	       	    $pk->y = $y+1;
-	       	    $pk->z = $z+0.5;
-	       	    $pk->yaw = $player->getYaw() + 180;
-	       	    $pk->pitch = $player->getPitch();
-	       	    $pk->metadata = [
-					    Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 1 << Entity::DATA_FLAG_INVISIBLE],
+	        		$pk->eid = mt_rand(1000,100000);
+	        		$pk->type = $id;
+	            		$pk->x = $x+0.5;
+	       	    		$pk->y = $y+1;
+	       			$pk->z = $z+0.5;
+	       	    		$pk->yaw = $player->getYaw() + 180;
+	       	    		$pk->pitch = $player->getPitch();
+	       	    		$pk->metadata = [
+					    	Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 1 << Entity::DATA_FLAG_INVISIBLE],
 			  			Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $n],
 			  			Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
 			  			Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
 			  			Entity::DATA_LEAD_HOLDER => [Entity::DATA_TYPE_LONG, -1],
 			  			Entity::DATA_LEAD => [Entity::DATA_TYPE_BYTE, 0]
-		    			];
+		    				];
 					     
-	        	    foreach ($this->server->getOnlinePlayers() as $p) 
-			    {
-				 $p->dataPacket($pk);
-			    }
+	        	    	foreach ($this->server->getOnlinePlayers() as $p) 
+			    	{
+				 	$p->dataPacket($pk);
+			    	}
 			    
-	        	    $this->npc->set($pk->eid, [
-	        	    	"show" => true,
-	        	    	"type" => $id, 
-	        	    	"x"=>$x,
-	        	    	"y"=>$y,
-	        	    	"z"=>$z,
-	        	    	"item"=>["id"=>$itemId,"amount"=>1],
-	        	    	"commands"=>["random" => true, $command],
-	        	    	"name"=>$n,
-	        	    	"text-on-top" => "", 
-	        	    	"msg" => "",
-	        	    	"yaw" => $pk->yaw,
-			    	    "pitch" => $pk->pitch]);
-			    $this->npc->save();
-			    unset($this->tap[$player->getName()]);
+	        	    	$this->npc->set($pk->eid, [
+	        	    		"show" => true,
+	        	    		"type" => $id, 
+	        	    		"x"=>$x,
+	        	    		"y"=>$y,
+	        	    		"z"=>$z,
+	        	    		"item"=>["id"=>$itemId,"amount"=>1],
+	        	    		"commands"=>["random" => true, $command],
+	        	    		"name"=>$n,
+	        	    		"text-on-top" => "", 
+	        	    		"msg" => "",
+	        	    		"yaw" => $pk->yaw,
+			    	    	"pitch" => $pk->pitch]);
+				 $this->npc->save();
+				 unset($this->tap[$player->getName()]);
 	                }
 		}
 	}
@@ -548,11 +551,11 @@ class CustomNPC extends PluginBase implements Listener{
 		}elseif ($type === "del") 
 		{
 			if(($key = array_search(str_replace("/", "", $command), $data["commands"])) !== false) 
-		    {
-		    	unset($data["commands"][$key]);
-		    	$this->npc->set($eid, $data);
-		    	$this->npc->save();
-            } 
+			{
+				unset($data["commands"][$key]);
+		 		$this->npc->set($eid, $data);
+		    		$this->npc->save();
+            		} 
 		}
 	}
 
@@ -564,29 +567,29 @@ class CustomNPC extends PluginBase implements Listener{
 		$z = $options["z"];
 		$name = $options["name"];
 		if($type === "player")
-	    {
-	        $pk = new AddPlayerPacket();
+	    	{
+	        	$pk = new AddPlayerPacket();
 
-	        $pk->uuid = UUID::fromRandom();
-	        $pk->username = $name;
-	        $pk->eid = mt_rand(10000,100000);
-	        $pk->x = $x;
-	        $pk->y = $y+1;
-	        $pk->z = $z;
-	        $pk->speedX = 0;
-	        $pk->speedY = 0;
-	        $pk->speedZ = 0;
-	        $pk->yaw = $options["yaw"];
-	        $pk->pitch = $options["pitch"];
-	        $pk->item = Item::get(0,0,0);
-	        $pk->metadata = [
-	        				Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
-			  				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $name],
-			  				Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
-			  				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
-			  				Entity::DATA_LEAD_HOLDER => [Entity::DATA_TYPE_LONG, -1],
-			  				Entity::DATA_LEAD => [Entity::DATA_TYPE_BYTE, 0]
-			  				];
+	        	$pk->uuid = UUID::fromRandom();
+	        	$pk->username = $name;
+	        	$pk->eid = mt_rand(10000,100000);
+	        	$pk->x = $x;
+	        	$pk->y = $y+1;
+	        	$pk->z = $z;
+	        	$pk->speedX = 0;
+	        	$pk->speedY = 0;
+	        	$pk->speedZ = 0;
+	        	$pk->yaw = $options["yaw"];
+	        	$pk->pitch = $options["pitch"];
+	        	$pk->item = Item::get(0,0,0);
+	        	$pk->metadata = [
+	        			Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
+			  		Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $name],
+			  		Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
+			  		Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
+			  		Entity::DATA_LEAD_HOLDER => [Entity::DATA_TYPE_LONG, -1],
+			  		Entity::DATA_LEAD => [Entity::DATA_TYPE_BYTE, 0]
+			  		];
 
 			if($player !== null)
 			{
@@ -612,33 +615,33 @@ class CustomNPC extends PluginBase implements Listener{
 				$this->server->broadcastPacket($this->server->getOnlinePlayers(), $remove);
 			}
 
-	    }else
-	    {
-	    	$pk = new AddEntityPacket();
+	    	}else
+	    	{
+	    		$pk = new AddEntityPacket();
 
-	        	    $pk->eid = $eid;
-	        	    $pk->type = $type;
-	        	    $pk->x = $x+0.5;
-	        	    $pk->y = $y+1;
-	        	    $pk->z = $z+0.5;
-	        	    $pk->yaw = $options["yaw"];
+	        	$pk->eid = $eid;
+	        	$pk->type = $type;
+	        	$pk->x = $x+0.5;
+	        	$pk->y = $y+1;
+	        	$pk->z = $z+0.5;
+	        	$pk->yaw = $options["yaw"];
 	                $pk->pitch = $options["pitch"];
-	        	    $pk->metadata = [
-	        				Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
-			  				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $name],
-			  				Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
-			  				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
-			  				Entity::DATA_LEAD_HOLDER => [Entity::DATA_TYPE_LONG, -1],
-			  				Entity::DATA_LEAD => [Entity::DATA_TYPE_BYTE, 0]
-			  				];
+	        	$pk->metadata = [
+	        			Entity::DATA_FLAGS => [Entity::DATA_TYPE_BYTE, 0 << Entity::DATA_FLAG_INVISIBLE],
+			  		Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $name],
+			  		Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
+			  		Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
+			  		Entity::DATA_LEAD_HOLDER => [Entity::DATA_TYPE_LONG, -1],
+			  		Entity::DATA_LEAD => [Entity::DATA_TYPE_BYTE, 0]
+			  		];
 					     
-	        	    foreach ($this->server->getOnlinePlayers() as $p) 
-			        {
-				        $p->dataPacket($pk);
-			        }
+	        	foreach ($this->server->getOnlinePlayers() as $p) 
+			{
+				$p->dataPacket($pk);
+			}
 			        
-                    $this->npc->set($pk->eid, $options);
-			        $this->npc->save();
-	    }
+                    	$this->npc->set($pk->eid, $options);
+			$this->npc->save();
+	    	}
 	}
 }
