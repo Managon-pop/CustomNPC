@@ -7,7 +7,6 @@ use pocketmine\Plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\item\Item;
 use pocketmine\event\Listener;
-use pocketmine\network\protocol\InteractPacket;
 use pocketmine\entity\Entity;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
@@ -17,12 +16,10 @@ use pocketmine\utils\UUID;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\protocol\AddPlayerPacket;
 use pocketmine\network\protocol\RemoveEntityPacket;
-use pocketmine\network\protocol\PlayerListPacket;
 
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\event\player\PlayerMoveEvent;
 
 class CustomNPC extends PluginBase implements Listener
 {
@@ -86,7 +83,7 @@ class CustomNPC extends PluginBase implements Listener
 						switch ($type) {
 							case 'name':
 							case 'msg':
-							case 'top':
+							case 'top'://Todo
 							case 'item':
 							    $this->setOpt($target, $type, $opt);
 							    unset($this->opt[$player->getName()]);
@@ -309,7 +306,7 @@ class CustomNPC extends PluginBase implements Listener
 		    	    		    		    }
 		    	    		    		    break;
 
-		    	    		    		case 'top':
+		    	    		    		case 'top'://Todo
 		    	    		    		    if(isset($args[2]))
 		    	    		    		    {
 
@@ -461,7 +458,7 @@ class CustomNPC extends PluginBase implements Listener
 			    		"name"=>$n,"uuid"=>base64_encode($pk->uuid),
 			    		"skin" => base64_encode($player->getSkinData()), 
 			    		"skin_id"=>$player->getSkinId(),
-			    		"text-on-top" => "", 
+			    		"text-on-top" => "", //Todo
 			    		"msg" => "",
 			    		"yaw" => $pk->yaw,
 			    		"pitch" => $pk->pitch
@@ -504,7 +501,7 @@ class CustomNPC extends PluginBase implements Listener
 	        	    		"item"=>["id"=>$itemId,"amount"=>1],
 	        	    		"commands"=>["random" => true, $command],
 	        	    		"name"=>$n,
-	        	    		"text-on-top" => "", 
+	        	    		"text-on-top" => "", //Todo
 	        	    		"msg" => "",
 	        	    		"yaw" => $pk->yaw,
 			    	    	"pitch" => $pk->pitch]);
