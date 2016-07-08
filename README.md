@@ -7,9 +7,9 @@ You can tap the NPCs to use commands and get informations.
 ##Usage
 
 <h3>To add Player NPC with your skin,</h3> 
-<strong>/cn add &lt;player&gt; &lt;ItemId(add tapper)&gt; &lt;command(If you want none, enter cn)&gt; &lt;NPC's Name&gt;</strong><br />
+<strong>/cn add &lt;player&gt; &lt;ItemId(add to tapper)&gt; &lt;command(If you want none, enter cn)&gt; &lt;NPC's Name&gt;</strong><br />
 <h3>To add Entities NPC,</h3>
-<strong>/cn add &lt;entityId&gt; &lt;ItemId(add tapper)&gt; &lt;command(If you want none, enter cn)&gt; &lt;NPC's Name&gt;</strong><br />
+<strong>/cn add &lt;entityId&gt; &lt;ItemId(add to tapper)&gt; &lt;command(If you want none, enter cn)&gt; &lt;NPC's Name&gt;</strong><br />
 To delete NPC, enter<br />
 <strong>/cn del</strong>&nbsp;and Tap.<br />
 
